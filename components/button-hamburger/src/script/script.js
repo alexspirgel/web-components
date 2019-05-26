@@ -53,10 +53,14 @@ class ButtonHamburger extends HTMLElement {
 	}
 
 	set active(value) {
+		// If a true value is passed.
 		if (value) {
+			// Add the active attribute to the button element.
 			this.buttonElement.setAttribute(this.constructor.activeAttribute, '');
 		}
+		// If a false value is passed.
 		else {
+			// Remove the active attribute from the button element.
 			this.buttonElement.removeAttribute(this.constructor.activeAttribute);
 		}
 	}
