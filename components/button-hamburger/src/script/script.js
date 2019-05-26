@@ -1,12 +1,6 @@
 // Import template.
 import templateContent from '../template/template.html';
 
-/**
- * Use a template element instead of setting the shadowRoot innerHTML directly.
- * Template element content is only parsed once.
- * Calling innerHTML on the shadowRoot will be parsed with each component instance.
- */
-
 // Create template element.
 let templateElement = document.createElement('template');
 // Replace template element content with imported template.
