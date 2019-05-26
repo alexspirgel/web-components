@@ -32,5 +32,6 @@ gulp.task(
 			'style',
 			'script'
 		),
-	'watch')
+		'watch'
+	)
 );
