@@ -2,7 +2,7 @@
   "name": "button-hamburger",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/script/script.js",
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-sass": "^4.0.2",
@@ -14,6 +14,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Alexander Spirgel",
+  "license": "MIT"
 }
