@@ -1,0 +1,8 @@
+:host {
+	display: inline-block;
+}
+.tag-owner {
+	&__link {
+		color: green;
+	}
+} 

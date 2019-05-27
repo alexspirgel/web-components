@@ -1,0 +1,15 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+	<style type="text/css">
+		.st0{fill:#8BD3C9;}
+		.st1{fill:#2F3E52;}
+		.st2{fill:#FC9C94;}
+		.st3{fill:#0AA5A5;}
+	</style>
+	<rect x="0" y="0" class="st0" width="512" height="512"/>
+	<rect x="74.8" y="74.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -105.9429 255.8896)" class="st0" width="362.2" height="362.2"/>
+	<polyline class="st1" points="0,256 0,0 256,0 "/>
+	<polyline class="st2" points="256,0 512,0 512,256 "/>
+	<polyline class="st2" points="256,512 0,512 0,256 "/>
+	<polyline class="st1" points="512,256 512,512 256,512 "/>
+	<polyline class="st3" points="256,0 256,256 0,256 "/>
+</svg>
