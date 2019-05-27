@@ -39,16 +39,16 @@ class TagOwner extends HTMLElement {
 	}
 
 	/**
-	 *
+	 * Get the template element for the component.
 	 */
 
 	static get template() {
-		//
+		// Return the template element from the component class constructor.
 		return this.constructor.template;
 	}
 
 	/**
-	 *
+	 * Generate a template element and attach it to the component class constructor.
 	 */
 
 	static generateTemplate(style, template) {
@@ -117,9 +117,9 @@ class TagOwner extends HTMLElement {
 		// It's required by the custom elements spec.
 		super();
 
-		//
+		// If the component template has not been generated.
 		if (!this.constructor.template) {
-			//
+			// Generate the component template.
 			this.constructor.generateTemplate(style, template);
 		}
 
@@ -128,12 +128,13 @@ class TagOwner extends HTMLElement {
 		// Add a clone of the template to the shadow root.
 		shadowRoot.appendChild(this.constructor.template.content.cloneNode(true));
 
-		//
+		// Set the link value equal to itself.
+		// This is to trigger the set method of the link value.
 		this.link = this.link;
 	}
 
 	/**
-	 *
+	 * Wrap the component template content in an <a> element.
 	 */
 
 	addLinkElement() {
@@ -163,7 +164,7 @@ class TagOwner extends HTMLElement {
 	}
 
 	/**
-	 *
+	 * Remove the wrapping <a> element from the component template.
 	 */
 
 	removeLinkElement() {
@@ -183,7 +184,7 @@ class TagOwner extends HTMLElement {
 	}
 
 	/**
-	 *
+	 * Set the link element href attribute value.
 	 */
 
 	setLinkElementHref(value) {
