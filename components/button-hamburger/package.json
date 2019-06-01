@@ -2,17 +2,18 @@
   "name": "button-hamburger",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/script/script.js",
+  "main": "index.js",
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-sass": "^4.0.2",
+    "css-loader": "^2.1.1",
     "html-loader": "^0.5.5",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
     "webpack": "^4.32.2",
-    "webpack-cli": "^3.3.2",
-    "webpack-stream": "^5.2.1"
+    "webpack-cli": "^3.3.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack"
   },
   "author": "Alexander Spirgel",
   "license": "MIT"

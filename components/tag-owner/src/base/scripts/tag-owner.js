@@ -1,7 +1,7 @@
 // Import style.
-import style from '@styles';
+import style from '@style';
 // Import template.
-import template from '@templates';
+import template from '@template';
 
 /**
  * Creates a new owner tag.

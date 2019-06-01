@@ -4,57 +4,40 @@ const fs = require('fs');
 // Get component name.
 let componentName = __dirname.split(path.sep).pop();
 
-// Set default folder name.
-let folderDefault = 'base';
-// Set override folder name.
-let folderOverride = 'custom';
+// Choose which supplied path to compile
+const getPath = (paths) => {
+	for (let path = paths.length - 1; path >= 0; path--) {
+		if (fs.existsSync(paths[path])) {
+			return paths[path];
+		}
+	}
+};
 
-/**
- * Handle scripts override.
- */
+// Set script path.
+const scriptPath = getPath(
+	[
+		path.resolve(__dirname, `./src/base/scripts/${componentName}.js`),
+		path.resolve(__dirname, `./src/custom/scripts/${componentName}.js`)
+	]
+);
 
-// Set scripts folder to default.
-let folderScripts = folderDefault;
-// If script override file exists.
-if (fs.existsSync(path.resolve(__dirname, `./src/${folderOverride}/scripts/${componentName}.js`))) {
-	// Set scripts folder to override.
-	folderScripts = folderOverride;
-}
-// Set scripts file location.
-let scriptsLocation = `./${folderScripts}/scripts/${componentName}.js`;
+// Set style path.
+const stylePath = getPath(
+	[
+		path.resolve(__dirname, `./src/base/styles/${componentName}.scss`),
+		path.resolve(__dirname, `./src/custom/styles/${componentName}.scss`)
+	]
+);
 
-/**
- * Handle styles override.
- */
+// Set template path.
+const templatePath = getPath(
+	[
+		path.resolve(__dirname, `./src/base/templates/${componentName}.html`),
+		path.resolve(__dirname, `./src/custom/templates/${componentName}.html`)
+	]
+);
 
-// Set styles folder to default.
-let folderStyles = folderDefault;
-// If style override file exists.
-if (fs.existsSync(path.resolve(__dirname, `./src/${folderOverride}/styles/${componentName}.scss`))) {
-	// Set styles folder to override.
-	folderStyles = folderOverride;
-}
-// Set styles file location.
-let stylesLocation = `../../${folderStyles}/styles/${componentName}.scss`;
-
-/**
- * Handle templates override.
- */
-
-// Set templates folder to default.
-let folderTemplates = folderDefault;
-// If template override file exists.
-if (fs.existsSync(path.resolve(__dirname, `./src/${folderOverride}/templates/${componentName}.html`))) {
-	// Set templates folder to override.
-	folderTemplates = folderOverride;
-}
-// Set templates file location.
-let templatesLocation = `../../${folderTemplates}/templates/${componentName}.html`;
-
-/**
- * Webpack configuration.
- */
-
+// Webpack configuration.
 module.exports = {
 	entry: './src/' + componentName + '.js',
 	mode: 'production',
@@ -81,9 +64,9 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			'@scripts': scriptsLocation,
-			'@styles': stylesLocation,
-			'@templates': templatesLocation,
+			'@script': scriptPath,
+			'@style': stylePath,
+			'@template': templatePath,
 		}
 	},
 	watch: true

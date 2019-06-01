@@ -1,0 +1,178 @@
+$component-class: '.button-hamburger' !default;
+$hamburger-stage-width: 50px !default;
+$hamburger-stage-height: 35px !default;
+$hamburger-line-width: 50px !default;
+$hamburger-line-height: 7px !default;
+$active-attribute: 'active' !default;
+$transition-attribute: 'transition' !default;
+
+:host {
+	display: inline-block;
+}
+#{$component-class} {
+	&__button {
+		font: inherit;
+		color: inherit;
+		text-transform: none;
+		background-color: transparent;
+		border: 0;
+		margin: 0;
+		padding: 0;
+		overflow: visible;
+		cursor: pointer;
+	}
+	&__stage {
+		position: relative;
+		width: $hamburger-stage-width;
+		height: $hamburger-stage-height;
+		background-color: transparent;
+	}
+	&__line {
+		position: absolute;
+		display: inline-block;
+		width: $hamburger-line-width;
+		height: $hamburger-line-height;
+		left: 0;
+		border-radius: $hamburger-line-height;
+		background-color: black;
+		&:first-child {
+			top: 0;
+		}
+		&:nth-child(2) {
+			top: calc(50% - (#{$hamburger-line-height} / 2));
+		}
+		&:last-child {
+			top: calc(100% - #{$hamburger-line-height});
+		}
+	}
+	&__text {}
+}
+
+/**
+ * Transition: none
+ */
+
+// Transition attribute value is 'none', has active attribute.
+:host([#{$transition-attribute}='none'][#{$active-attribute}]),
+// Transition attribute value is blank, has active attribute.
+:host([#{$transition-attribute}=''][#{$active-attribute}]),
+// No transition attribute, has active attribute.
+:host(:not([#{$transition-attribute}])[#{$active-attribute}]) {
+	#{$component-class} {
+		&__line {
+			&:first-child {
+				top: calc(50% - (#{$hamburger-line-height} / 2));
+				transform: rotate(45deg);
+			}
+			&:nth-child(2) {
+				opacity: 0;
+			}
+			&:last-child {
+				top: calc(50% - (#{$hamburger-line-height} / 2));
+				transform: rotate(-45deg);
+			}
+		}
+	}
+}
+
+/**
+ * Transition: spin
+ */
+
+$spin-transition-duration: 350ms !default;
+// Transition attribute value is 'spin'.
+:host([#{$transition-attribute}="spin"]) {
+	#{$component-class} {
+		&__stage {
+			transition: transform #{$spin-transition-duration * 0.57} ease-out 0ms;
+		}
+		&__line {
+			&:first-child {
+				transition: top #{$spin-transition-duration * 0.43} ease #{$spin-transition-duration * 0.57};
+			}
+			&:nth-child(2) {
+				transition: opacity 0ms linear #{$spin-transition-duration * 0.57};
+			}
+			&:last-child {
+				transition:
+					top       #{$spin-transition-duration * 0.43} ease   #{$spin-transition-duration * 0.43},
+					transform #{$spin-transition-duration * 0.43} linear #{$spin-transition-duration * 0.14};
+			}
+		}
+	}
+}
+// Transition attribute value is 'spin', has active attribute.
+:host([#{$transition-attribute}="spin"][#{$active-attribute}]) {
+	#{$component-class} {
+		&__stage {
+			transform: rotate(135deg);
+			transition: transform #{$spin-transition-duration * 0.57} ease-in #{$spin-transition-duration * 0.43};
+		}
+		&__line {
+			top: calc(50% - (#{$hamburger-line-height} / 2));
+			&:first-child {
+				transition: top #{$spin-transition-duration * 0.43} ease 0ms;
+			}
+			&:nth-child(2) {
+				opacity: 0;
+				transition: opacity 0ms linear #{$spin-transition-duration * 0.43};
+			}
+			&:last-child {
+				transform: rotate(90deg);
+				transition: 
+					top       #{$spin-transition-duration * 0.43} ease   0ms,
+					transform #{$spin-transition-duration * 0.43} linear #{$spin-transition-duration * 0.43};
+			}
+		}
+	}
+}
+
+/**
+ * Transition: squeeze
+ */
+
+$squeeze-transition-duration: 300ms !default;
+// Transition attribute value is 'squeeze'.
+:host([#{$transition-attribute}="squeeze"]) {
+	#{$component-class} {
+		&__line {
+			&:first-child {
+				transition:
+					top       #{$squeeze-transition-duration * 0.5} ease #{$squeeze-transition-duration * 0.5},
+					transform #{$squeeze-transition-duration * 0.5} ease 0ms;
+			}
+			&:nth-child(2) {
+				transition: opacity 0ms linear #{$squeeze-transition-duration * 0.5};
+			}
+			&:last-child {
+				transition:
+					top       #{$squeeze-transition-duration * 0.5} ease #{$squeeze-transition-duration * 0.5},
+					transform #{$squeeze-transition-duration * 0.5} ease 0ms;
+			}
+		}
+	}
+}
+// Transition attribute value is 'squeeze', has active attribute.
+:host([#{$transition-attribute}="squeeze"][#{$active-attribute}]) {
+	#{$component-class} {
+		&__line {
+			top: calc(50% - (#{$hamburger-line-height} / 2));
+			&:first-child {
+				transform: rotate(45deg);
+				transition:
+					top       #{$squeeze-transition-duration * 0.5} ease 0ms,
+					transform #{$squeeze-transition-duration * 0.5} ease #{$squeeze-transition-duration * 0.5};
+			}
+			&:nth-child(2) {
+				opacity: 0;
+				transition: opacity 0ms linear #{$squeeze-transition-duration * 0.5};
+			}
+			&:last-child {
+				transform: rotate(-45deg);
+				transition:
+					top       #{$squeeze-transition-duration * 0.5} ease 0ms,
+					transform #{$squeeze-transition-duration * 0.5} ease #{$squeeze-transition-duration * 0.5};
+			}
+		}
+	}
+}
