@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 
+// Get src folder path.
+let srcPath = path.resolve(__dirname, './src');
 // Get component name.
 let componentName = __dirname.split(path.sep).pop();
 
@@ -16,31 +18,31 @@ const getPath = (paths) => {
 // Set script path.
 const scriptPath = getPath(
 	[
-		path.resolve(__dirname, `./src/base/scripts/${componentName}.js`),
-		path.resolve(__dirname, `./src/custom/scripts/${componentName}.js`)
+		`${srcPath}/base/scripts/${componentName}.js`,
+		`${srcPath}/custom/scripts/${componentName}.js`
 	]
 );
 
 // Set style path.
 const stylePath = getPath(
 	[
-		path.resolve(__dirname, `./src/base/styles/${componentName}.scss`),
-		path.resolve(__dirname, `./src/custom/styles/${componentName}.scss`)
+		`${srcPath}/base/styles/${componentName}.scss`,
+		`${srcPath}/custom/styles/${componentName}.scss`
 	]
 );
 
 // Set template path.
 const templatePath = getPath(
 	[
-		path.resolve(__dirname, `./src/base/templates/${componentName}.html`),
-		path.resolve(__dirname, `./src/custom/templates/${componentName}.html`)
+		`${srcPath}/base/templates/${componentName}.html`,
+		`${srcPath}/custom/templates/${componentName}.html`
 	]
 );
 
 // Webpack configuration.
 module.exports = {
 	entry: './src/' + componentName + '.js',
-	mode: 'development',
+	mode: 'production',
 	module: {
 		rules: [
 			{
@@ -64,6 +66,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
+			'@src': srcPath,
 			'@script': scriptPath,
 			'@style': stylePath,
 			'@template': templatePath,
