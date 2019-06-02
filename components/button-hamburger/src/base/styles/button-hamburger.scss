@@ -1,7 +1,6 @@
 $component-class: '.button-hamburger' !default;
 $hamburger-stage-width: 50px !default;
 $hamburger-stage-height: 35px !default;
-$hamburger-line-width: 50px !default;
 $hamburger-line-height: 7px !default;
 $active-attribute: 'active' !default;
 $transition-attribute: 'transition' !default;
@@ -30,7 +29,7 @@ $transition-attribute: 'transition' !default;
 	&__line {
 		position: absolute;
 		display: inline-block;
-		width: $hamburger-line-width;
+		width: 100%;
 		height: $hamburger-line-height;
 		left: 0;
 		border-radius: $hamburger-line-height;
@@ -131,7 +130,7 @@ $spin-transition-duration: 350ms !default;
  * Transition: squeeze
  */
 
-$squeeze-transition-duration: 300ms !default;
+$squeeze-transition-duration: 250ms !default;
 // Transition attribute value is 'squeeze'.
 :host([#{$transition-attribute}="squeeze"]) {
 	#{$component-class} {
@@ -172,6 +171,123 @@ $squeeze-transition-duration: 300ms !default;
 				transition:
 					top       #{$squeeze-transition-duration * 0.5} ease 0ms,
 					transform #{$squeeze-transition-duration * 0.5} ease #{$squeeze-transition-duration * 0.5};
+			}
+		}
+	}
+}
+
+/**
+ * Transition: arrow-left
+ */
+
+$arrow-transition-duration: 150ms !default;
+// Transition attribute value starts with 'arrow-'.
+:host([#{$transition-attribute}^="arrow-"]) {
+	#{$component-class} {
+		&__line {
+			&:first-child {
+				transition:
+					width     $arrow-transition-duration ease 0ms,
+					top       $arrow-transition-duration ease 0ms,
+					transform $arrow-transition-duration ease 0ms;
+			}
+			&:nth-child(2) {
+				transition:
+					width #{$arrow-transition-duration * 0.5} ease 0ms,
+					left  #{$arrow-transition-duration * 0.5} ease 0ms,
+					right  #{$arrow-transition-duration * 0.5} ease 0ms;
+			}
+			&:last-child {
+				transition:
+					width     $arrow-transition-duration ease 0ms,
+					top       $arrow-transition-duration ease 0ms,
+					transform $arrow-transition-duration ease 0ms;
+			}
+		}
+	}
+}
+// Transition attribute value starts with 'arrow-', has active attribute.
+:host([#{$transition-attribute}^="arrow-"][#{$active-attribute}]) {
+	#{$component-class} {
+		&__line {
+			&:first-child {
+				width: calc(#{$hamburger-stage-width} / 2);
+				top: calc(50% - (#{$hamburger-line-height} / 2) + (#{$hamburger-line-height} / 2));
+			}
+			&:nth-child(2) {
+				width: calc(100% - (#{$hamburger-line-height} / 2));
+				transition:
+					width #{$arrow-transition-duration * 0.5} ease #{$arrow-transition-duration * 0.5},
+					left  #{$arrow-transition-duration * 0.5} ease #{$arrow-transition-duration * 0.5},
+					right  #{$arrow-transition-duration * 0.5} ease #{$arrow-transition-duration * 0.5};
+			}
+			&:last-child {
+				width: calc(#{$hamburger-stage-width} / 2);
+				top: calc(50% - (#{$hamburger-line-height} / 2) - (#{$hamburger-line-height} / 2));
+			}
+		}
+	}
+}
+// Transition attribute value is 'arrow-left'.
+:host([#{$transition-attribute}="arrow-left"]) {
+	#{$component-class} {
+		&__line {
+			&:first-child {
+				transform-origin: 0% 0%;
+			}
+			&:nth-child(2) {}
+			&:last-child {
+				transform-origin: 0% 100%;
+			}
+		}
+	}
+}
+// Transition attribute value starts with 'arrow-left', has active attribute.
+:host([#{$transition-attribute}="arrow-left"][#{$active-attribute}]) {
+	#{$component-class} {
+		&__line {
+			&:first-child {
+				transform: rotate(-45deg);
+			}
+			&:nth-child(2) {
+				left: calc(#{$hamburger-line-height} / 2);
+			}
+			&:last-child {
+				transform: rotate(45deg);
+			}
+		}
+	}
+}
+// Transition attribute value is 'arrow-right'.
+:host([#{$transition-attribute}="arrow-right"]) {
+	#{$component-class} {
+		&__line {
+			&:first-child {
+				right: 0;
+				left: auto;
+				transform-origin: 100% 0%;
+			}
+			&:nth-child(2) {}
+			&:last-child {
+				right: 0;
+				left: auto;
+				transform-origin: 100% 100%;
+			}
+		}
+	}
+}
+// Transition attribute value starts with 'arrow-right', has active attribute.
+:host([#{$transition-attribute}="arrow-right"][#{$active-attribute}]) {
+	#{$component-class} {
+		&__line {
+			&:first-child {
+				transform: rotate(45deg);
+			}
+			&:nth-child(2) {
+				right: calc(#{$hamburger-line-height} / 2);
+			}
+			&:last-child {
+				transform: rotate(-45deg);
 			}
 		}
 	}
