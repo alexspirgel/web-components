@@ -22,3 +22,5 @@ Set all component dependencies as any version `"my_component": "x"`. Each compon
 Do we want these components to live in the `node_modules` folder? Wouldn't it be nice if all the modules were in their own `components` folder, but all their non-module dependencies still lived in `node_modules`? It would feel weird doing most of the work on a website editing code within the `node_modules` folder.
 
 Do updates to a node module remove other files (custom overrides) in that folder even if they are npm ignored?
+
+Multiple custom instances of the same component?
