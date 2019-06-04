@@ -27,27 +27,27 @@ Multiple custom instances of the same component?
 
 
 ## Proposed Structure
-components
-	custom-accordion
-		dist
-			custom-accordion.js
-		src
-			scripts
-				index.js
-			styles
-				index.css
-			templates
-				index.html
-			custom-accordion.js
-node_modules
-	@component/component-accordion
-		dist
-			component-accordion.js
-		src
-			scripts
-				index.js
-			styles
-				index.css
-			templates
-				index.html
-			component-accordion.js
+* components
+	- custom-accordion
+		- dist
+			- custom-accordion.js
+		- src
+			- scripts
+				- index.js
+			- styles
+				- index.css
+			- templates
+				- index.html
+			- custom-accordion.js
+* node_modules
+	- @component/component-accordion
+		- dist
+			- component-accordion.js
+		- src
+			- scripts
+				- index.js
+			- styles
+				- index.css
+			- templates
+				- index.html
+			- component-accordion.js
