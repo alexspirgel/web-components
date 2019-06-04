@@ -24,3 +24,30 @@ Do we want these components to live in the `node_modules` folder? Wouldn't it be
 Do updates to a node module remove other files (custom overrides) in that folder even if they are npm ignored?
 
 Multiple custom instances of the same component?
+
+
+## Proposed Structure
+components
+	custom-accordion
+		dist
+			custom-accordion.js
+		src
+			scripts
+				index.js
+			styles
+				index.css
+			templates
+				index.html
+			custom-accordion.js
+node_modules
+	@component/component-accordion
+		dist
+			component-accordion.js
+		src
+			scripts
+				index.js
+			styles
+				index.css
+			templates
+				index.html
+			component-accordion.js
