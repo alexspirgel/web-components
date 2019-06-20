@@ -31,9 +31,9 @@ I want to ES6 import as much as possible. If more than one component requires th
 
 ## Proposed Structure
 * components
-	- custom-accordion
+	- my-accordion
 		- dist
-			- custom-accordion.js
+			- my-accordion.js
 		- src
 			- scripts
 				- index.js
@@ -41,11 +41,11 @@ I want to ES6 import as much as possible. If more than one component requires th
 				- index.css
 			- templates
 				- index.html
-			- custom-accordion.js
+			- my-accordion.js
 * node_modules
-	- @component/component-accordion
+	- @wcl/wcl-accordion
 		- dist
-			- component-accordion.js
+			- wcl-accordion.js
 		- src
 			- scripts
 				- index.js
@@ -53,4 +53,7 @@ I want to ES6 import as much as possible. If more than one component requires th
 				- index.css
 			- templates
 				- index.html
-			- component-accordion.js
+			- wcl-accordion.js
+* shared-resources
+	- styles
+	- scripts
