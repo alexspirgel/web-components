@@ -1,0 +1,22 @@
+{
+  "name": "web-component-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "@alexspirgel/wcl-button-hamburger": "^0.1.1",
+    "css-loader": "^2.1.1",
+    "glob": "^7.1.4",
+    "html-loader": "^0.5.5",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  },
+  "scripts": {
+    "webpack": "webpack",
+    "wcl": "webpack --config webpack-wcl.config.js"
+  },
+  "author": "Alexander Spirgel",
+  "license": "MIT"
+}

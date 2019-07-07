@@ -1,10 +1,10 @@
 {
   "name": "button-hamburger",
   "version": "1.0.0",
-  "description": "This is a custom implementation of the `wcl-button-hamburger` module.",
+  "description": "",
   "main": "src/index.js",
   "wclBase": "@alexspirgel/wcl-button-hamburger",
   "devDependencies": {
-    "@alexspirgel/wcl-button-hamburger": "^0.1.0"
+    "@alexspirgel/wcl-button-hamburger": "0.1.0"
   }
 }
