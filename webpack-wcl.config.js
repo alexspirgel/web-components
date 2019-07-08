@@ -1,5 +1,40 @@
 const path = require('path');
 const glob = require('glob');
+const fs = require('fs');
+
+class MultipleAliasPaths {
+	constructor(aliasObject) {
+		this.aliasObject = aliasObject;
+	}
+
+	apply(resolver) {
+		const target = resolver.ensureHook('resolve');
+		resolver.getHook('described-resolve').tapAsync('MultipleAliasPaths', (request, resolveContext, callback) => {
+			for (const alias in this.aliasObject) {
+				const thisAlias = this.aliasObject[alias];
+				if (request.request.indexOf(alias) > -1) {
+					for (const path in thisAlias) {
+						const thisPath = thisAlias[path];
+						const newRequestStr = request.request.replace(alias, thisPath);
+						console.log(newRequestStr);
+						if (fs.existsSync(newRequestStr)) {
+							console.log('^ FOUND');
+							const obj = Object.assign({}, request, {
+								request: newRequestStr
+							});
+							return resolver.doResolve(target, obj, "aliased with mapping '" + alias + "': '" + thisPath + "' to '" + newRequestStr + "'", resolveContext, (err, result) => {
+								if(err) return callback(err);
+								if(result === undefined) return callback(null, null);
+								callback(null, result);
+							});
+						}
+					}
+				}
+			}
+			return callback();
+		});
+	}
+}
 
 // For each component with a `package.json` file.
 glob('./components/*/package.json' , {}, (error, componentConfigPaths) => {
@@ -40,6 +75,7 @@ glob('./components/*/package.json' , {}, (error, componentConfigPaths) => {
 		console.log('componentAliases:');
 		console.log(componentAliases);
 	}
+		console.log('========================================');
 });
 
 // Webpack configuration.
@@ -70,9 +106,16 @@ module.exports = [
 			path: path.resolve(__dirname, './components/button-hamburger/dist')
 		},
 		resolve: {
-			alias: {
-				'@component': path.resolve(__dirname, './components/button-hamburger')
-			}
+			plugins: [
+				new MultipleAliasPaths(
+					{
+						'@component': [
+							path.resolve(__dirname, './components/button-hamburger'),
+							path.resolve(__dirname, './node_modules/@alexspirgel/wcl-button-hamburger')
+						]
+					}
+				)
+			]
 		},
 		watch: true
 	},
@@ -102,9 +145,16 @@ module.exports = [
 			path: path.resolve(__dirname, './components/button-hamburger2/dist')
 		},
 		resolve: {
-			alias: {
-				'@component': path.resolve(__dirname, './components/button-hamburger2')
-			}
+			plugins: [
+				new MultipleAliasPaths(
+					{
+						'@component': [
+							path.resolve(__dirname, './components/button-hamburger2'),
+							path.resolve(__dirname, './components/button-hamburger2/node_modules/@alexspirgel/wcl-button-hamburger'),
+						]
+					}
+				)
+			]
 		},
 		watch: true
 	}
