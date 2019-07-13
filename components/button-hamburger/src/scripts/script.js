@@ -1,7 +1,7 @@
 // Import styles.
-import styles from '@component/src/styles/wcl-button-hamburger.scss';
+import styles from '@component/src/styles/style.scss';
 // Import template.
-import template from '@component/src/templates/wcl-button-hamburger.html';
+import template from '@component/src/templates/template.html';
 
 /**
  * Creates a new hamburger button.

@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "This is a custom implementation of the `wcl-button-hamburger` module.",
   "main": "src/index.js",
-  "wclBase": "@alexspirgel/wcl-button-hamburger",
+  "webComponent": {
+  	"baseComponent": "@alexspirgel/wcl-button-hamburger"
+  },
   "devDependencies": {
     "@alexspirgel/wcl-button-hamburger": "^0.1.0"
   }
