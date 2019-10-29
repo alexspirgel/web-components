@@ -45,13 +45,16 @@ class WCAliasOverrides {
 	}
 }
 
-// For each module with a `package.json` file.
-const filePaths = glob.sync('./components/**/package.json');
-
 // Initialize the array of Webpack configuration objects.
 let webpackConfigurations = [];
+// Identify the location of the components directory.
+const componentsDirectory = './components';
+// Get the absolute path to the components directory.
+const componentsDirectoryPath = path.resolve(__dirname, componentsDirectory);
+// Get an array of paths to each component's package.json file.
+const filePaths = glob.sync(componentsDirectoryPath + '/*/package.json');
 
-// For each module file path.
+// For each file path.
 for (let filePathIndex in filePaths) {
 	
 	// Get this file path.
@@ -63,12 +66,12 @@ for (let filePathIndex in filePaths) {
 	if (packageObject.webComponent) {
 
 		// Get this component directory path.
-		let componentDirectoryPath = path.resolve(__dirname, path.dirname(filePath).split(path.sep).pop());
+		let componentDirectoryPath = path.dirname(filePath);
 
 		// Build the Webpack configuration object.
 		let webpackConfig = {
 			name: packageObject.name,
-			entry: componentDirectoryPath + path.sep + packageObject.main.replace('/', path.sep),
+			entry: path.resolve(componentDirectoryPath, packageObject.main),
 			mode: 'development',
 			module: {
 				rules: [
@@ -89,7 +92,16 @@ for (let filePathIndex in filePaths) {
 			},
 			output: {
 				filename: 'index.js',
-				path: componentDirectoryPath + path.sep + 'dist'
+				path: path.resolve(componentDirectoryPath, 'dist')
+			},
+			stats: {
+				modulesSort: 'index',
+				maxModules: Infinity,
+				hash: false,
+				version: false,
+				exclude: [
+					'css-loader'
+				]
 			},
 			watch: true
 		};
@@ -106,16 +118,12 @@ for (let filePathIndex in filePaths) {
 
 		// If a web component base is set.
 		if (packageObject.webComponent.baseComponent) {
-			// Get the path for the resolved WCL base dependency main script.
+			// Get the path for the base component main script.
 			let wclBaseMainPath = require.resolve(packageObject.webComponent.baseComponent, {
 				paths: [componentDirectoryPath]
 			});
-			// Normalize the path separator.
-			let wclBaseNormalizedPath = packageObject.webComponent.baseComponent.replace('/', path.sep);
-			// Get the base module directory index within the resolved module,
-			let wclBaseDirectoryPathIndex = wclBaseMainPath.indexOf(wclBaseNormalizedPath);
-			// Trim the path to the base module directory.
-			let wclBaseDirectoryPath = wclBaseMainPath.slice(0, (wclBaseDirectoryPathIndex + wclBaseNormalizedPath.length));
+			// Get the base component directory path.
+			let wclBaseDirectoryPath = path.dirname(path.dirname(wclBaseMainPath));
 			
 			// Add base component paths to the alias overrides object.
 			aliasOverridesObject['@base'] = [wclBaseDirectoryPath];
@@ -132,58 +140,8 @@ for (let filePathIndex in filePaths) {
 		// Add the Webpack configuration object to the array of Webpack configuration objects.
 		webpackConfigurations.push(webpackConfig);
 
-	}
+	} // End: If the module is a web component.
 
-}
+} // End: For each file path.
 
 module.exports = webpackConfigurations;
-
-
-// Webpack configuration.
-// module.exports = [
-// 	{
-// 		name: 'button-hamburger',
-// 		entry: './components/button-hamburger/src/index.js',
-// 		mode: 'development',
-// 		module: {
-// 			rules: [
-// 				{
-// 					test: /\.html$/,
-// 					use: [
-// 						'html-loader'
-// 					]
-// 				},
-// 				{
-// 					test: /\.scss$/,
-// 					use: [
-// 						'css-loader',
-// 						'sass-loader'
-// 					]
-// 				}
-// 			]
-// 		},
-// 		output: {
-// 			filename: 'index.js',
-// 			path: path.resolve(__dirname, './components/button-hamburger/dist')
-// 		},
-// 		resolve: {
-// 			plugins: [
-// 				new WCAliasOverrides(
-// 					{
-// 						'@base': [
-// 							path.resolve(__dirname, './node_modules/@alexspirgel/wcl-button-hamburger')
-// 						],
-// 						'@custom': [
-// 							path.resolve(__dirname, './components/button-hamburger')
-// 						],
-// 						'@component': [
-// 							path.resolve(__dirname, './components/button-hamburger'),
-// 							path.resolve(__dirname, './node_modules/@alexspirgel/wcl-button-hamburger')
-// 						]
-// 					}
-// 				)
-// 			]
-// 		},
-// 		watch: true
-// 	}
-// ];

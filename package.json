@@ -1,5 +1,5 @@
 {
-  "name": "web-component-test",
+  "name": "web-components",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,7 +14,8 @@
     "webpack-cli": "^3.3.2"
   },
   "scripts": {
-    "web-components": "webpack --config webpack-wc.config.js"
+    "web-components-dev": "webpack --config webpack-wc.config.js --mode=development",
+    "web-components-prod": "webpack --config webpack-wc.config.js --mode=production"
   },
   "author": "Alexander Spirgel",
   "license": "MIT"
